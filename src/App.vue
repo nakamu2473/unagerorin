@@ -9,7 +9,13 @@ export default {
       hoge:"foooooooo",
       isShow: true,
       count: 0,
-   isDisabled: false
+      isDisabled: false,
+      arr:[1,3,5,7],
+      car: {
+        name :"kuruma",
+        speede: "hayai",
+        price: "takai"
+      }
     }
   },
   methods: {
@@ -33,6 +39,18 @@ export default {
       <div v-if="isShow">
         <input v-model="hoge" :disabled="isDisabled"/>
       </div>
+      <div v-if="isShow">
+        {{ hoge }}
+      </div>
+      <button @click='isShow = !isShow'>表示toggle</button>
+
+      <ul>
+        <li v-for="item in arr" :key="item"> {{ item }}</li>
+      </ul>
+
+      <ul>
+        <li v-for="(item, key) in car" :key="key"> {{ key }} - {{ item }}</li>
+      </ul>
         <div :class="hoge" >
           ウヒョおおおおお
         </div>
