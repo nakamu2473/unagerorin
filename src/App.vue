@@ -3,6 +3,24 @@ import HelloWorld from './components/HelloWorld.vue'
 export default {
   components: {
     HelloWorld
+  },
+  data() {
+    return {
+      hoge:"foooooooo",
+      isShow: true,
+      count: 0,
+   isDisabled: false
+    }
+  },
+  methods: {
+   incremenet() {
+      this.count++
+   }
+  },
+  conputed: {
+    double() {
+      return this.count * 2
+    }
   }
 }
 </script>
@@ -12,6 +30,19 @@ export default {
 
     <div class="wrapper">
       <HelloWorld msg="うなげろりん!!!!" />
+      <div v-if="isShow">
+        <input v-model="hoge" :disabled="isDisabled"/>
+      </div>
+        <div :class="hoge" >
+          ウヒョおおおおお
+        </div>
+      <div>
+      {{ hoge }}
+      {{ count }}
+      {{ double }}
+
+      <button @click="incremenet"> +1 </button>
+    </div>
       <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="175" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.podcasts.apple.com/jp/podcast/1-%E3%82%B7%E3%83%A7%E3%82%A6%E3%82%BF%E3%81%A8%E3%82%AB%E3%83%8D/id1575465539?i=1000528457414"></iframe>
       
       <nav>
@@ -26,6 +57,10 @@ export default {
 </template>
 
 <style scoped>
+.uhyooooo {
+  background-color: red;
+}
+
 header {
   line-height: 1.5;
   max-height: 100vh;
