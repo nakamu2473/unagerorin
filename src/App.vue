@@ -1,8 +1,10 @@
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import TheWelcome from './components/TheWelcome.vue'
 export default {
   components: {
-    HelloWorld
+    HelloWorld,
+    TheWelcome
   },
   data() {
     return {
@@ -36,6 +38,7 @@ export default {
 
     <div class="wrapper">
       <HelloWorld msg="うなげろりん!!!!" />
+      <TheWelcome  />
       <div v-if="isShow">
         <input v-model="hoge" :disabled="isDisabled"/>
       </div>
@@ -51,6 +54,12 @@ export default {
       <ul>
         <li v-for="(item, key) in car" :key="key"> {{ key }} - {{ item }}</li>
       </ul>
+      <div v-for="item in arr">
+        <HelloWorld :msg="item" />
+      </div>
+      <div v-for="item in car">
+        <HelloWorld :msg="item" />
+      </div>
         <div :class="hoge" >
           ウヒョおおおおお
         </div>
