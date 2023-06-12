@@ -70,12 +70,6 @@ export default {
 
       <button @click="incremenet"> +1 </button>
     </div>
-  
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="https://podcasts.apple.com/jp/podcast/%E3%83%9E%E3%83%A6%E3%83%AA%E3%82%AB%E3%81%AE%E3%81%86%E3%81%AA%E3%81%92%E3%82%8D%E3%82%8A%E3%82%93/id1575465539?i=1000528457414">#1</RouterLink>
-      </nav>
     </div>
   </header> 
   </template>
