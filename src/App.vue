@@ -1,10 +1,12 @@
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
+import TheHeader from './components/TheHeader.vue'
 export default {
   components: {
     HelloWorld,
-    TheWelcome
+    TheWelcome,
+    TheHeader
   },
   data() {
     return {
@@ -36,6 +38,7 @@ export default {
 <template>
   <HelloWorld msg="うなげろりん!!!!" />
   AppVueeeeeeeeeeee
+  <TheHeader />
   <RouterView />
 </template>
 

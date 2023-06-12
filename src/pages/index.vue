@@ -34,8 +34,6 @@ export default {
 </script>
 <template>
     <div> home </div>
-    <router-link to="/about">about</router-link>
-    <router-link to="/develop">develop</router-link>
     <header>
 
     <div class="wrapper">
