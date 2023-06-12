@@ -2,10 +2,24 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
+import { createRouter, createWebHashHistory } from "vue-router"
+import MainComponent from "./pages/index.vue"
+import AbountComponent from "./pages/abount.vue"
+import DevelopComponent from "./pages/develop.vue"
 
-const app = createApp(App)
+const Home = { template: '<div>Home</div>' }
+const About = { template: '<div>About</div>' }
+const Develop = { template: '<div>Develop</div>' }
 
-app.use(router)
+const routes = [
+  { path: '/', component: MainComponent },
+  { path: '/about', component: AbountComponent },
+  { path: '/develop', component: DevelopComponent },
+]
 
-app.mount('#app')
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes,
+})
+
+createApp(App).use(router).mount("#app") 
