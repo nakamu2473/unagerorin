@@ -36,10 +36,16 @@ export default {
             console.log(hoge)
         },
         addMessage(){
-            this.messages.push(this.tmpMessage)
+            if (this.tmpMessage.length > 0) {
+                this.messages.push(this.tmpMessage)
+            }
         },
         delMessage(){
             this.messages.pop()
+        },
+        mounted(){
+            console.log("hi")
+            this.message = "よろしくお願いします" 
         },
 
     }
@@ -53,6 +59,7 @@ export default {
         <h2>七里山超えて</h2>
     </div>
     {{ count }}山超えました
+    {{ message }}
 
     <button @click="add(1)">+1</button>
     <button @click="add(2)">+2</button>

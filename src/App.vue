@@ -19,7 +19,8 @@ export default {
         name :"kuruma",
         speede: "hayai",
         price: "takai"
-      }
+      },
+      message: ""
     }
   },
   methods: {
@@ -31,6 +32,10 @@ export default {
     double() {
       return this.count * 2
     }
+  },
+  mounted(){
+    console.log("hi")
+    this.message = "よろしくお願いします" 
   }
 }
 </script>
