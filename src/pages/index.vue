@@ -1,10 +1,12 @@
 <script>
 import HelloWorld from '../components/HelloWorld.vue'
 import TheWelcome from '../components/TheWelcome.vue'
+import ListItem from '../components/ListItem.vue'
 export default {
   components: {
     HelloWorld,
-    TheWelcome
+    TheWelcome,
+    ListItem
   },
   data() {
     return {
@@ -33,9 +35,12 @@ export default {
 }
 </script>
 <template>
+  <header>
     <div> home </div>
-    <header>
-
+  </header>
+      <ul>
+        <ListItem msg="Hello" v-for="(item, key) in car" :key="key"></ListItem>
+      </ul>
     <div class="wrapper">
       <div v-if="isShow">
         <input v-model="hoge" :disabled="isDisabled"/>
@@ -50,7 +55,7 @@ export default {
       </ul>
 
       <ul>
-        <li v-for="(item, key) in car" :key="key"> {{ key }} - {{ item }}</li>
+        <ListItem v-for="(item, key) in car" :key="key"> {{ key }} - {{ item }}</ListItem>
       </ul>
       <div v-for="item in arr">
         <HelloWorld :msg="item" />
@@ -68,6 +73,5 @@ export default {
 
       <button @click="incremenet"> +1 </button>
     </div>
-    </div>
-  </header> 
+    </div> 
   </template>
