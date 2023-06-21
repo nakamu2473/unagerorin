@@ -55,7 +55,7 @@ export default {
       </ul>
 
       <ul>
-        <ListItem v-for="(item, key) in car" :key="key"> {{ key }} - {{ item }}</ListItem>
+        <li v-for="(item, key) in car" :key="key"> {{ key }} - {{ item }}</li>
       </ul>
       <div v-for="item in arr">
         <HelloWorld :msg="item" />
