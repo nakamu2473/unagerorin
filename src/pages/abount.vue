@@ -1,10 +1,17 @@
 
 <script>
-import TheWelcome from "../components/TheWelcome.vue"
 
 export default {
-  components: {
-     TheWelcome
+  data() {
+    return {
+      wanwan: {}
+    }
+  },
+  methods: {
+    async dog() {
+      const res = await fetch("https://dog.ceo/api/breeds/image/random", (res) => res.data())
+      this.wanwan = await res.json()
+    }
   }
 }
 </script>
@@ -12,7 +19,9 @@ export default {
 <template>
   <div>
     <div> about </div>
-    <TheWelcome />
-
+    <button @click="dog()">dog</button>
+    <!-- {{ wanwan.status }}
+    {{ wanwan.message }} -->
+    <img :src="wanwan.message" />
   </div>
 </template>
