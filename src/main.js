@@ -6,7 +6,6 @@ import { createRouter, createWebHashHistory } from "vue-router"
 import MainComponent from "./pages/index.vue"
 import AbountComponent from "./pages/abount.vue"
 import DevelopComponent from "./pages/develop.vue"
-import MisskeyComponent from "./pages/misskey.vue"
 
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
@@ -16,13 +15,11 @@ import * as directives from 'vuetify/directives'
 const Home = { template: '<div>Home</div>' }
 const About = { template: '<div>About</div>' }
 const Develop = { template: '<div>Develop</div>' }
-const Misskey = { template: '<div>Misskey</div>' }
 
 const routes = [
   { path: '/', component: MainComponent },
   { path: '/about', component: AbountComponent },
   { path: '/develop', component: DevelopComponent },
-  { path: '/misskey', component: MisskeyComponent },
 ]
 
 const router = createRouter({

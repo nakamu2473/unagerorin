@@ -45,7 +45,7 @@ export default {
   AppVueeeeeeeeeeee
   <TheHeader />
   <RouterView />
-  <!-- <v-btn>
+  <v-btn>
       Button
     </v-btn>
     <v-card text="カーーーーど"></v-card>
@@ -54,7 +54,7 @@ export default {
       <v-card-actions>
        <v-btn>Click me</v-btn>
       </v-card-actions>
-    </v-card> -->
+    </v-card>
 </template>
 
 
