@@ -42,7 +42,8 @@ export default {
 
 <template>
   <HelloWorld msg="うなげろりん!!!!" />
-  AppVueeeeeeeeeeee
+  <HelloWorld><img src="https://images.dog.ceo/breeds/weimaraner/n02092339_6869.jpg"></HelloWorld>
+  <br>
   <TheHeader />
   <RouterView />
   <!-- <v-btn>

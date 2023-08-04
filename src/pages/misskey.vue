@@ -1,15 +1,37 @@
 
 <script>
-
+import * as Misskey from 'misskey-js';
 export default {
   data() {
     return {
       mi_i: {},
-      timeline: {}
+      timeline: {},
+      mi_stream: {},
+      postContent:"",
+      cli: new Misskey.api.APIClient({
+	      origin: 'https://misskey.systems',
+	      credential: import.meta.env.VITE_MISSKEY_TOKEN,
+      }),
+      isShowMe: false,
     }
   },
   methods: {
-
+    async iam_misskey () {
+      this.mi_i = await this.cli.request('i', { detail: true });
+      this.isShowMe = true
+      
+    },
+    async postContentMsg(msg) {
+      await this.cli.request('notes/create', { text: msg });
+      this.postContent = ""
+    },
+    async iam_misskey_stream () {
+      const stream = new Misskey.Stream('https://misskey.systems', { token: import.meta.env.VITE_MISSKEY_TOKEN });
+      const mainChannel = stream.useChannel('main');
+      mainChannel.on('notification', notification => {
+	      console.log('notification received', notification);
+      });
+    },
     async iam () {
       const url = "https://misskey.systems/api/i";
       const params = {
@@ -42,28 +64,68 @@ export default {
 
 <template>
   <div>
-    <div> misskey </div>
-    <v-btn @click="iam()">iam</v-btn>
-    
-    <p>私は{{ mi_i.name }}です。</p>
-    <p><img :src="mi_i.avatarUrl" /></p>
-    
-    <p><v-btn @click="getTimeline()">Timeline</v-btn></p>
-    <!-- <p><pre> {{timeline }} </pre></p> -->
 
-    <div v-for="(item, key) in timeline" :key="key">
-      <v-avatar>
-        <v-img
-          :width="300"
-          aspect-ratio="16/9"
-          cover
-          :src="item.user.avatarUrl"
-        ></v-img>
-      </v-avatar>
-      <v-list>{{ item.createdAt }}</v-list> 
-      <v-list>{{ item.user.name }}</v-list>
-      <v-list>{{ item.text }}</v-list>
+    <v-sheet width="300" class="mx-auto">
+      <v-btn
+          @click="iam_misskey()"
+          v-bind="props"
+          color="#A7EB5E"
+          size="x-large"
+          text="me"
+        ></v-btn>
 
-     </div>
+      <p v-if="isShowMe">私は{{ mi_i.name }}です。
+      <img :src="mi_i.avatarUrl" /></p>
+
+      <p>
+        <v-form @submit.prevent>
+          <v-text-field
+            v-model="postContent"
+            :rules="rules"
+            label="投稿しよう！"
+          ></v-text-field>
+          <v-btn
+            block
+            @click="postContentMsg(postContent)"
+            type="submit"
+            v-bind="props"
+            color="#5E6EEB"
+            size="x-large"
+            text="投稿"
+          ></v-btn>
+        </v-form>
+      </p>
+
+      <!-- <v-btn @click="iam_misskey()">iam</v-btn> -->
+
+
+      <!-- <v-btn @click="iam_misskey_stream()">iam_misskey_stream</v-btn>
+      {{ mi_stream }} -->
+      
+      <!-- <p><v-btn @click="getTimeline()">reroad</v-btn></p> -->
+      <p>
+        <v-btn
+            @click="getTimeline()"
+            v-bind="props"
+            color="#EB5EDF"
+            size="x-large"
+            text="reload"
+          ></v-btn>
+
+        <v-list-item v-for="(item, key) in timeline" :key="key">
+          <v-avatar style="display: flex;">
+            <v-img
+              :width="300"
+              aspect-ratio="16/9"
+              cover
+              :src="item.user.avatarUrl"
+            ></v-img>
+          </v-avatar>
+          <v-list-item-subtitle>{{ item.createdAt }}</v-list-item-subtitle> 
+          <v-list-subheader>{{ item.user.name }}</v-list-subheader>
+          <v-list>{{ item.text }}</v-list>
+        </v-list-item>
+      </p>
+    </v-sheet>
   </div>
 </template>

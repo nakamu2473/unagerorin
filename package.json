@@ -1,5 +1,5 @@
 {
-  "name": " unagerorin",
+  "name": "unagerorin",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "misskey-js": "^0.0.16",
     "vue": "^3.3.2",
     "vue-router": "^4.2.2",
     "vuetify": "^3.3.5"
