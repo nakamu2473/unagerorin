@@ -13,6 +13,8 @@ export default {
 	      credential: import.meta.env.VITE_MISSKEY_TOKEN,
       }),
       isShowMe: false,
+      fileList: {},
+      upFileList: [],
     }
   },
   methods: {
@@ -22,7 +24,10 @@ export default {
       
     },
     async postContentMsg(msg) {
-      await this.cli.request('notes/create', { text: msg });
+      await this.cli.request('notes/create', { 
+        text: msg+"びゅーどーじょーからの投稿！",
+        // fileIds: this.upFileList
+      });
       this.postContent = ""
     },
     async iam_misskey_stream () {
@@ -57,6 +62,16 @@ export default {
 
       const response = await fetch(url, params);
       this.timeline = await response.json();
+    },
+
+    async getFileList () {
+      this.fileList =  await this.cli.request('drive/files', { 
+        limit: 10,
+      });
+    },
+    setFile(id) {
+      this.upFileList.push(id)
+      console.log(this.upFileList)
     },
   }
 }
@@ -124,6 +139,26 @@ export default {
           <v-list-item-subtitle>{{ item.createdAt }}</v-list-item-subtitle> 
           <v-list-subheader>{{ item.user.name }}</v-list-subheader>
           <v-list>{{ item.text }}</v-list>
+        </v-list-item>
+      </p>
+
+      <p>
+        <v-btn
+            @click="getFileList()"
+            v-bind="props"
+            color="#EB5EDF"
+            size="x-large"
+            text="File取得"
+          ></v-btn>
+
+        <v-list-item v-for="(item, key) in fileList" :key="key">
+            <v-img
+              :width="300"
+              aspect-ratio="16/9"
+              cover
+              :src="item.url"
+              @click="setFile(item.id)"
+            ></v-img>
         </v-list-item>
       </p>
     </v-sheet>
