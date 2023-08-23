@@ -8,6 +8,7 @@ export default {
       timeline: {},
       mi_stream: {},
       postContent:"",
+      cre: import.meta.env.VITE_MISSKEY_TOKEN,
       cli: new Misskey.api.APIClient({
 	      origin: 'https://misskey.systems',
 	      credential: import.meta.env.VITE_MISSKEY_TOKEN,
@@ -15,6 +16,8 @@ export default {
       isShowMe: false,
       fileList: {},
       upFileList: [],
+      upFile: {},
+      dojoMessage: "びゅーどーじょーからの投稿！",
     }
   },
   methods: {
@@ -25,24 +28,24 @@ export default {
     },
     async postContentMsg(msg) {
       await this.cli.request('notes/create', { 
-        text: msg+"びゅーどーじょーからの投稿！",
-        // fileIds: this.upFileList
+        text: msg+this.dojoMessage,
+        fileIds: this.upFileList
       });
       this.postContent = ""
     },
-    async iam_misskey_stream () {
-      const stream = new Misskey.Stream('https://misskey.systems', { token: import.meta.env.VITE_MISSKEY_TOKEN });
-      const mainChannel = stream.useChannel('main');
-      mainChannel.on('notification', notification => {
-	      console.log('notification received', notification);
-      });
-    },
+    // async iam_misskey_stream () {
+    //   const stream = new Misskey.Stream('https://misskey.systems', { token: import.meta.env.VITE_MISSKEY_TOKEN });
+    //   const mainChannel = stream.useChannel('main');
+    //   mainChannel.on('notification', notification => {
+	  //     console.log('notification received', notification);
+    //   });
+    // },
     async iam () {
       const url = "https://misskey.systems/api/i";
       const params = {
         method : "POST", 
         headers: {'Content-Type': 'application/json'},
-        body : JSON.stringify({i : import.meta.env.VITE_MISSKEY_TOKEN})};
+        body : JSON.stringify({i : this.cre})};
 
       const response = await fetch(url, params);
       this.mi_i = await response.json();
@@ -70,8 +73,22 @@ export default {
       });
     },
     setFile(id) {
-      this.upFileList.push(id)
-      console.log(this.upFileList)
+      this.upFileList.push(id);
+    },
+    async uploadImage() {
+      const params = new FormData();
+      params.append("file", this.$refs.image.files[0]);
+      params.append("i", this.cre);
+      params.append("force", this.$refs.image.files[0]);
+      params.append("name", this.$refs.image.files[0].name);
+      const response = await fetch(`${this.cli.origin}/api/drive/files/create`, {
+        method: 'POST',
+        body: params,
+        credentials: 'omit',
+        cache: 'no-cache',
+      })
+      this.upFile = await response.json();
+      this.setFile(this.upFile.id);
     },
   }
 }
@@ -79,7 +96,16 @@ export default {
 
 <template>
   <div>
-
+    <div>
+    <!-- ファイルアップロード用の input -->
+    <input
+      type="file"
+      ref="image"
+      accept="image/*"
+      name="image"
+      @change="uploadImage()"
+    />
+  </div>
     <v-sheet width="300" class="mx-auto">
       <v-btn
           @click="iam_misskey()"
